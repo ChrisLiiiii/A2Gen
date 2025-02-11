@@ -1,4 +1,4 @@
-# A$^\text{2}$Gen: An Action-Aware Generative Sequence Network for Short Video Recommendation
+# A<sup>2</sup>Gen: An Action-Aware Generative Sequence Network for Short Video Recommendation
 
 
 ## User Action Sequence Introduction
