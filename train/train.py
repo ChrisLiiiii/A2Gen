@@ -18,9 +18,9 @@ print_tensor_opt = []
 with tf.variable_scope("model", reuse=tf.AUTO_REUSE):
     print("model_start")
     # Hyperparameters
-    emb_size = 32  # transformer 中间变量的 emb size
-    num_heads = 4  # 多头注意力机制的头数
-    action_type_num = len(action_types) - 1  # 行为数量，包括 start，所以最后预估的时候要减一
+    emb_size = 32
+    num_heads = 4
+    action_type_num = len(action_types) - 1  # the num of action types to predict, remove start
 
     if model_type == "EAG":
         A2Gen = ExplicitAutoregressiveGenerator(
@@ -29,8 +29,8 @@ with tf.variable_scope("model", reuse=tf.AUTO_REUSE):
             action_type_num=action_type_num
         )
         time_pred, cls_pred_logits = A2Gen.eag(
-            hist_action_time_emb_seq,  # -1, 10, 10, 32
-            hist_item_emb_seq,  # -1, 10, 32
+            hist_action_time_emb_seq,
+            hist_item_emb_seq,
             label_action_seq,
             target_item_emb,
             user_emb
@@ -42,8 +42,8 @@ with tf.variable_scope("model", reuse=tf.AUTO_REUSE):
             action_type_num=action_type_num
         )
         time_pred_aux, cls_pred_logits_aux, time_pred, cls_pred_logits = A2Gen.iag(
-            hist_action_time_emb_seq,  # -1, 10, 10, 32
-            hist_item_emb_seq,  # -1, 10, 32
+            hist_action_time_emb_seq,
+            hist_item_emb_seq,
             target_item_emb,
             user_emb
         )
@@ -52,7 +52,6 @@ with tf.variable_scope("model", reuse=tf.AUTO_REUSE):
 
 if args.mode == 'train':
     loss_list = []
-    one = tf.ones((tf.shape(label_action_seq)[0], 1))  # (?, 1)  loss 样本权重，默认都是 1
 
     ## ---------------------------- softmax loss ----------------------------
     label_action_seq = tf.cast(label_action_seq[:, 1:], tf.int32) - 1  # remove start
@@ -81,8 +80,8 @@ if args.mode == 'train':
     ))
     if model_type == "IAG":
         softmax_loss_aux = tf.nn.softmax_cross_entropy_with_logits_v2(
-                labels=label_one_hot_seq,  # -1, 9, 10
-                logits=cls_pred_logits_aux,  # -1, 9, 10
+                labels=label_one_hot_seq,
+                logits=cls_pred_logits_aux,
                 axis=-1
             ) * padding_mask
         softmax_loss_aux = tf.reduce_sum(softmax_loss_aux, axis=-1)

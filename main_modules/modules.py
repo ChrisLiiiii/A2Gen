@@ -1,4 +1,5 @@
 import tensorflow as tf
+from config.args import args
 
 
 def mlp_block(name, inputs, units, dropouts=None, activation=tf.nn.leaky_relu, stop_gradient=False):
@@ -12,6 +13,5 @@ def mlp_block(name, inputs, units, dropouts=None, activation=tf.nn.leaky_relu, s
                                      kernel_initializer=tf.glorot_uniform_initializer())
             if dropouts is not None and dropouts[i] > 0:
                 output = tf.layers.dropout(output, dropouts[i], training=(args.mode == 'train'))
-            # output = config.batch_norm(output, name+f"_bn_{i}")
         return output
 
