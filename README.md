@@ -18,7 +18,7 @@
 ```
 
 ## User Action Sequence Introduction
-<img alt="img/intro_v2.png" src="img/intro_v2.png" width="600"/>
+<img alt="img/intro.png" src="img/intro_v2.png" width="600"/>
 
 
 ## Model Main Process
