@@ -36,18 +36,7 @@
 
 <img alt="img/hse.png" src="img/hse.png" width="600"/>
 
-### EAG
+### AAG
 
 <img alt="img/agen.png" src="img/agen.png" width="600"/>
-
-### IAG
-
-<img alt="img/iagen.png" src="img/iagen.png" width="600"/>
-
-
-## Experiments
-
-<img alt="img.png" src="img/tm_exp.png" width="400"/>
-
-<img alt="img.png" src="img/kuaishou_exp.png" width="400"/>
 
